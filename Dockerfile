@@ -2,7 +2,7 @@
 # Alpine would be nice, but it's linked again musl and breaks the bitcoin core download binary
 #FROM alpine:latest
 
-FROM ubuntu:latest as builder
+FROM debian:latest as builder
 
 # Testing: gosu
 #RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing/" >> /etc/apk/repositories \
@@ -15,7 +15,7 @@ RUN apt update \
     && apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 ARG VERSION=22.0
-ARG ARCH=x86_64
+ARG ARCH=aarch64
 ARG BITCOIN_CORE_SIGNATURE=71A3B16735405025D447E8F274810B012346C9A6
 
 # Don't use base image's bitcoin package for a few reasons:
