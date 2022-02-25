@@ -56,6 +56,7 @@ RUN apt update \
 
 COPY ./bitcoin.conf bitcoin.conf 
 COPY password user ./
+COPY bcli.sh ./bcli.sh
 
 COPY ./docker-entrypoint.sh /docker-entrypoint.sh
 
