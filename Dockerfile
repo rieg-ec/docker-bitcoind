@@ -38,10 +38,8 @@ RUN cd /tmp \
 FROM ubuntu:latest
 LABEL maintainer="Kyle Manna <kyle@kylemanna.com>"
 
-ENTRYPOINT ["docker-entrypoint.sh"]
 ENV HOME /bitcoin
-EXPOSE 8332 8333
-VOLUME ["/bitcoin/.bitcoin"]
+EXPOSE 8333 8332
 WORKDIR /bitcoin
 
 ARG GROUP_ID=1000
@@ -56,6 +54,10 @@ RUN apt update \
     && apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
     && ln -sv /opt/bitcoin/bin/* /usr/local/bin
 
-COPY ./bin ./docker-entrypoint.sh /usr/local/bin/
+COPY ./bitcoin.conf bitcoin.conf 
+COPY password user ./
 
-CMD ["btc_oneshot"]
+COPY ./docker-entrypoint.sh /docker-entrypoint.sh
+
+CMD ["/bin/bash", "/docker-entrypoint.sh"]
+
